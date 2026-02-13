@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Para Jeremy 🎮</title>
+
+<style>
+
+body{
+  margin:0;
+  background:black;
+  font-family:Arial, sans-serif;
+  overflow:hidden;
+}
+
+/* CONTROL VIDEOJUEGO */
+.control{
+  position:absolute;
+  top:80px;
+  left:50%;
+  transform:translateX(-50%);
+  width:200px;
+  height:80px;
+  background:#222;
+  border-radius:40px;
+  border:3px solid white;
+  animation:flotar 3s infinite ease-in-out;
+}
+
+.boton{
+  position:absolute;
+  width:20px;
+  height:20px;
+  border-radius:50%;
+}
+
+.b1{ top:30px; right:40px; background:#ff4d6d;}
+.b2{ top:15px; right:65px; background:#4dabff;}
+.b3{ top:45px; right:65px; background:#ff4d6d;}
+.b4{ top:30px; right:90px; background:#4dabff;}
+
+.cruz{
+  position:absolute;
+  left:40px;
+  top:20px;
+  width:40px;
+  height:40px;
+}
+
+.cruz::before, .cruz::after{
+  content:"";
+  position:absolute;
+  background:white;
+}
+
+.cruz::before{
+  width:40px;
+  height:10px;
+  top:15px;
+}
+
+.cruz::after{
+  width:10px;
+  height:40px;
+  left:15px;
+}
+
+@keyframes flotar{
+  0%{ transform:translateX(-50%) translateY(0);}
+  50%{ transform:translateX(-50%) translateY(15px);}
+  100%{ transform:translateX(-50%) translateY(0);}
+}
+
+/* CUADRO */
+.cuadro{
+  position:absolute;
+  top:60%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  background:white;
+  padding:40px;
+  border-radius:20px;
+  width:70%;
+  max-width:600px;
+  box-shadow:0 0 25px rgba(255,255,255,0.3);
+  text-align:center;
+}
+
+#mensaje{
+  font-size:22px;
+  color:black;
+  opacity:0;
+  transition:opacity 1s;
+}
+
+/* CORAZONES */
+.corazon{
+  position:absolute;
+  top:-50px;
+  font-size:24px;
+  animation:caer linear forwards;
+}
+
+@keyframes caer{
+  to{
+    transform:translateY(110vh);
+    opacity:0;
+  }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="control">
+  <div class="cruz"></div>
+  <div class="boton b1"></div>
+  <div class="boton b2"></div>
+  <div class="boton b3"></div>
+  <div class="boton b4"></div>
+</div>
+
+<div class="cuadro">
+  <p id="mensaje"></p>
+</div>
+
+<script>
+
+const textos=[
+
+"Hola Jeremy.",
+
+"Quería tomarme un momento para decirte algo que de verdad nace del corazón.",
+
+"Quiero agradecerte por tu amistad, porque a pesar de todo, siempre has estado ahí para mí.",
+
+"Gracias por confiar en mí y contarme tus cosas. Eso significa más de lo que imaginas.",
+
+"Sabes que yo siempre voy a estar pendiente para ti.",
+
+"Gracias por jugar conmigo y compartir esos momentos que se vuelven recuerdos especiales.",
+
+"Incluso cuando me equivoco, tú siempre encuentras la forma de hacerme reír.",
+
+"Esa manera tuya de molestarme en broma y sacarme una sonrisa…",
+
+"es algo que valoro muchísimo de ti."
+
+];
+
+const final="Feliz Día de la Amistad. 🎮🖤";
+
+let i=0;
+let msg=document.getElementById("mensaje");
+
+function crearCorazon(){
+
+const corazon=document.createElement("div");
+
+corazon.className="corazon";
+
+const colores=["🩷","💙"];
+
+corazon.innerText=colores[Math.floor(Math.random()*colores.length)];
+
+corazon.style.left=Math.random()*100+"vw";
+
+corazon.style.animationDuration=(Math.random()*3+2)+"s";
+
+document.body.appendChild(corazon);
+
+setTimeout(()=>{corazon.remove();},5000);
+
+}
+
+function lluviaCorazones(){
+
+setInterval(crearCorazon,300);
+
+}
+
+function mostrar(){
+
+msg.style.opacity=0;
+
+setTimeout(()=>{
+
+if(i<textos.length){
+
+msg.innerText=textos[i];
+msg.style.fontSize="22px";
+msg.style.fontWeight="normal";
+msg.style.opacity=1;
+
+i++;
+
+setTimeout(mostrar,4000);
+
+}else{
+
+msg.innerText=final;
+msg.style.fontSize="34px";
+msg.style.fontWeight="bold";
+msg.style.opacity=1;
+
+lluviaCorazones();
+
+}
+
+},1000);
+
+}
+
+mostrar();
+
+</script>
+
+</body>
+</html>
